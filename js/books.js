@@ -16,6 +16,7 @@ const loadbooks = () =>{
 }
 
 const displayBooks = data => {
+    // console.log(data);
     const books = data.docs;
     // console.log(books);
 
@@ -29,7 +30,7 @@ const displayBooks = data => {
         totalResult.textContent = '';
         const result = document.createElement('div');
         result.innerHTML = `
-            <p class="card-text d-inline">Total search resullts found: <span class="fw-bold fs-5">${books.length}</span></p>
+            <p class="card-text d-inline">Total search resullts found: <span class="fw-bold fs-5">${data.numFound}</span></p>
         `
         totalResult.appendChild(result);
         
@@ -48,9 +49,9 @@ const displayBooks = data => {
                     <img height="300px" src="${bookImage}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h4 class="card-title">${book.title}</h4>
-                        <h6 class="card-text fst-italic">${book?.author_name[0]}</h6>
-                        <p class="card-text">Publisher: ${book?.publisher[0]}</p>
-                        <p class="card-text d-inline">First published: <span class="fw-bold fs-5">${book?.first_publish_year}</span></p>
+                        <h6 class="card-text d-inline">Author: <span class="fw-bold fs-5 fst-italic">${book.author_name}</span></h6>
+                        <p class="card-text">Publisher: ${book.publisher}</p>
+                        <p class="card-text d-inline">First published: <span class="fw-bold fs-5">${book.first_publish_year}</span></p>
                     </div>
                 </div>
             `
