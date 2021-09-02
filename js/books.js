@@ -1,4 +1,4 @@
-const loadbooks = () =>{
+const loadbooks = () => {
     const input = document.getElementById('input-field');
     const searchText = input.value;
 
@@ -12,16 +12,16 @@ const loadbooks = () =>{
         fetch(url)
             .then(res => res.json())
             .then(data => displayBooks(data))
-        }
+    }
 }
 
 const displayBooks = data => {
     // console.log(data);
     const books = data.docs;
-    // console.log(books);
+    console.log(books.length);
 
     // error handling for no results found
-    if(books.length === 0) {
+    if (books.length === 0) {
         alert('no matching result found, plz try again');
     }
     else {
@@ -33,7 +33,7 @@ const displayBooks = data => {
             <p class="card-text d-inline">Total search resullts found: <span class="fw-bold fs-5">${data.numFound}</span></p>
         `
         totalResult.appendChild(result);
-        
+
         // display search results
         const parentCall = document.getElementById('display-books');
         parentCall.textContent = '';
@@ -41,7 +41,7 @@ const displayBooks = data => {
         books.forEach(book => {
             // console.log(book);
             const bookImage = ` https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
-            
+
             const div = document.createElement('div');
             div.classList.add('col');
             div.innerHTML = `
@@ -49,9 +49,11 @@ const displayBooks = data => {
                     <img height="300px" src="${bookImage}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h4 class="card-title">${book.title}</h4>
-                        <h6 class="card-text d-inline">Author: <span class="fw-bold fs-5 fst-italic">${book.author_name}</span></h6>
-                        <p class="card-text">Publisher: ${book.publisher}</p>
-                        <p class="card-text d-inline">First published: <span class="fw-bold fs-5">${book.first_publish_year}</span></p>
+
+                        <h6 class="card-text"><span>Author: </span><span class="fw-bold fs-5 fst-italic">${book.author_name?.[0]}</span></h6>
+                        <h6 class="card-text"><span>Publisher: </span><span class="fw-bold fs-6">${book.publisher?.[0]}</span></h6>
+
+                        <p class="card-text d-inline">First published: <span class="fw-bold fs-6">${book.first_publish_year}</span></p>
                     </div>
                 </div>
             `
